@@ -11,31 +11,53 @@
 
     {{ghost_head}}
     {{!-- Outputs important meta data and settings, should always be in <head> --}}
-
+    <link rel="stylesheet" href="https://use.typekit.net/dmr1dge.css">
 </head>
 <body class="{{body_class}}">
 <div class="gh-viewport">
 
 <header id="gh-head" class="gh-head">
-    <nav class="gh-head-inner gh-container">
+    <nav class="gh-head-inner">
+        <button onclick="toggleMenu()" class="menu-toggle">Menu</button>
+        <div class="gh-head-menu">
+            {{navigation}}
+            <div class="account-menu">
+
+                {{#if @member}}
+                    <a href="javascript:" class="account-menu-avatar" id="account-menu" type="checkbox" name="menu">
+                        {{#if @member.avatar_image}}
+                            <img src="{{@member.avatar_image}}" />
+                        {{/if}}
+                    </a>
+                    <ul class="account-menu-dropdown">
+                        <li class="account-info">
+                            <small>Signed in as</small>
+                            <span class="account-email" title="{{@member.email}}">{{@member.email}}</span>
+                        </li>
+                        <li><a href="{{@site.url}}/account/">Account</a></li>
+                        <span aria-hidden="true">&nbsp;&nbsp;/&nbsp;&nbsp;</span>
+                        <li><a href="#signout" data-members-signout>Log out</a></li>
+                    </ul>
+                {{else}}
+                    <a class="signin-link" href="{{@site.url}}/signin/">Log in</a>
+                    <span aria-hidden="true">&nbsp;&nbsp;/&nbsp;&nbsp;</span>
+                    <a class="button primary small header-cta" href="{{@site.url}}/signup/">Subscribe</a>
+                {{/if}}
+            </div>
+        </div>
 
         <div class="gh-head-brand">
             <a class="gh-head-logo" href="{{@site.url}}">
-                {{#if @site.logo}}
-                    <img src="{{@site.logo}}" alt="{{@site.title}}" />
-                {{else}}
-                    {{@site.title}}
-                {{/if}}
+                <svg title="Bryan King" viewBox="0 0 1447 151" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M93.924 148.677c49.154 0 65.539-9.292 65.539-38.331 0-32.755-21.923-33.684-61.616-33.684v-2.324c37.847-.232 59.078-1.626 59.078-34.846 0-28.341-15.693-37.169-64.847-37.169H0V52.27c15 0 14.77.697 14.77 13.706v18.817C14.77 97.802 15 98.5 0 98.5v50.178h93.924zm-5.308-72.248c7.154 0 10.616 1.626 10.616 10.454 0 9.99-3.693 11.616-11.308 11.616H77.308v-22.07h11.308zM86.77 52.27c7.154 0 10.615 1.859 10.615 11.616 0 9.292-2.538 10.221-8.769 10.221H77.308V52.27h9.462zM243.262 52.27c14.539 0 16.385 1.625 16.385 13.008 0 9.525-2.077 11.616-17.77 11.616h-2.307V52.269h3.692zM291.955 151c29.077 0 36-12.312 36-61.794 0-3.252 0-8.828-.231-15.797h-2.538c.461 6.737.461 11.848.461 15.565 0 7.898-.692 10.221-2.769 10.221s-2.538-1.626-2.538-5.807v-1.394c0-10.222-5.539-12.08-15.001-12.08H260.57V77.59c40.616 0 65.077-3.717 65.077-32.523 0-32.523-15-42.745-58.616-42.745h-104.77V52.27c15 0 14.77.93 14.77 16.03v16.493c0 13.01.23 13.707-14.77 13.707v50.178h90.232V98.499c-13.154 0-12.923-.465-12.923-11.384v-7.898h2.307c9.923 0 12.693 3.02 12.693 19.282 0 42.744 12.923 52.501 37.385 52.501zM453.179 148.677V98.499c-14.769 0-14.769-.697-14.769-14.171 15.231-14.868 37.385-28.574 42.693-32.059V2.323h-51.924V52.27c8.539 1.394 16.846 6.97 16.846 14.868 0 4.646-2.769 10.222-9.692 16.03l-19.154-17.192c-2.308-2.09-3.462-4.413-3.462-6.504 0-3.95 3.923-7.202 10.847-7.202V2.323h-95.309V52.27c4.385.465 8.769 2.788 15.692 10.454l19.385 21.372c0 13.707.231 14.404-14.769 14.404v50.178h103.616z" fill="#FDFAF7"/><path d="M529.399 100.822c-12-5.576-17.77-11.616-19.154-19.514h22.615l3.462 5.807c1.615 2.788 2.538 5.344 2.538 8.364 0 3.02-1.384 5.343-4.846 5.343v47.855h90.924V98.499c-2.769-.93-5.308-3.253-9.923-11.384l-13.846-23.927c-1.385-2.323-1.847-4.879-1.847-10.222V2.323h-113.77V52.27h19.385c3.923 0 6.692 2.788 6.692 6.273 0 3.252-1.846 6.272-3.923 9.06-13.615 18.352-27.692 28.109-36.923 30.897v50.178h58.616v-47.855zm-19.385-22.999c0-6.272 1.154-10.221 3-13.474l4.615-8.595 13.847 23.23h-21.462v-1.16zM692.433 98.499c-27.692-13.707-43.846-26.484-45.462-43.21l42.001 27.412c6.461 4.182 8.077 8.364 8.077 15.798v50.178h78.924V77.359c0-17.888 3.923-24.393 12-25.322V2.323h-59.77V52.27c18.692 4.879 44.77 24.393 45.462 40.886v1.626h-.231l-39.462-26.715c-8.538-5.808-10.385-6.737-10.385-16.03V2.324h-93.924V52.27c15.001 0 14.77.697 14.77 13.474v4.646c0 16.959-4.154 26.716-14.77 28.11v50.178h62.77V98.499zM966.691 151c29.077 0 35.999-12.312 35.999-61.794 0-3.252 0-8.828-.23-15.797h-2.538c.458 6.737.458 11.848.458 15.565 0 7.898-.689 10.221-2.766 10.221s-2.538-1.626-2.538-5.807v-1.394c0-14.635-9.693-17.423-26.308-17.423h-44.77v-2.556c28.846-5.343 54.924-12.312 76.842-19.746V2.323h-75.688V52.27c5.077.465 6.692 1.394 6.692 6.737 0 2.788-2.077 9.99-17.538 13.242v-6.273c0-12.776.923-13.706 7.846-13.706V2.323h-85.155V52.27c15 0 14.77.697 14.77 13.706v18.817c0 13.01.23 13.707-14.77 13.707v50.178h85.616V98.499c-7.846 0-8.307-.697-8.307-13.707v-7.898h2.307c9.924 0 12.693 3.484 12.693 21.605 0 42.744 12.923 52.501 37.385 52.501zM1022.14 84.792c0 13.01.23 13.707-14.77 13.707v50.178h103.62V98.499c-15 0-14.77-.697-14.77-13.707V65.975c0-13.009-.23-13.706 14.77-13.706V2.323h-103.62V52.27c15 0 14.77.697 14.77 13.706v18.817zM1178.32 98.499c-27.7-13.707-43.85-26.484-45.47-43.21l42 27.412c6.47 4.182 8.08 8.364 8.08 15.798v50.178h78.92V77.359c0-17.888 3.93-24.393 12-25.322V2.323h-59.77V52.27c18.7 4.879 44.77 24.393 45.47 40.886v1.626h-.23l-39.47-26.715c-8.53-5.808-10.38-6.737-10.38-16.03V2.324h-93.92V52.27c15 0 14.76.697 14.76 13.474v4.646c0 16.959-4.15 26.716-14.76 28.11v50.178h62.77V98.499zM1440.08 92.69c0-12.776 0-13.705 6.92-13.705v-2.323h-93.69v2.323c10.38 0 12 .697 12 7.433 0 9.525-2.77 11.848-8.54 11.848-8.08 0-11.31-3.02-11.31-21.605 0-12.08 2.77-18.816 9.23-18.816 4.85 0 9.92 3.484 10.85 12.776h72.92V2.323h-69.92v63.885h-2.31C1361.61 11.383 1352.38 0 1326.77 0c-36.93 0-51.69 27.412-51.69 76.43 0 58.076 15.23 74.57 50.53 74.57 28.39 0 37.62-11.383 42.24-66.208h2.3v63.885h69.93V92.691z" fill="#FDFAF7"/></svg>
             </a>
             <a class="gh-burger" role="button">
                 <div class="gh-burger-box">
                     <div class="gh-burger-inner"></div>
                 </div>
             </a>
-        </div>
-        <div class="gh-head-menu">
-            {{navigation}}
-        </div>
+        </div>        
+
+
         <div class="gh-head-actions">
             <div class="gh-head-actions-list">
                 {{#if @site.facebook}}
@@ -44,7 +66,7 @@
                 {{#if @site.twitter}}
                 <a href="{{twitter_url @site.twitter}}" title="Twitter" target="_blank" rel="noopener">{{> "icons/twitter"}}</a>
                 {{/if}}
-                <a href="https://feedly.com/i/subscription/feed/{{@site.url}}/rss/" title="RSS" target="_blank" rel="noopener">{{> "icons/rss"}}</a>
+                <!--a href="https://feedly.com/i/subscription/feed/{{@site.url}}/rss/" title="RSS" target="_blank" rel="noopener">{{> "icons/rss"}}</a-->
             </div>
         </div>
     </nav>
@@ -59,11 +81,11 @@
 
 <footer class="gh-foot">
     <div class="gh-container">
-        <div class="gh-foot-menu">
-            {{navigation}}
-        </div>
-        <div class="gh-foot-meta">
-            Published with <a href="https://ghost.org" target="_blank" rel="noopener">Ghost</a>
+        <div class="footer-masthead"
+        <a href="{{@site.url}}">{{@site.title}}</a> &copy; {{date format="YYYY"}}
+        {{#if @site.secondary_navigation}}
+        {{navigation type="secondary"}}
+        {{/if}}
         </div>
     </div>
 </footer>
@@ -82,12 +104,23 @@
 {{/if}}
 
 <script>
-$(document).ready(function () {
-    // Mobile Menu Trigger
-    $('.gh-burger').click(function () {
-        $('body').toggleClass('gh-head-open');
-    });
-});
+    var menu = document.querySelector('.gh-head-menu');
+
+    if (window.innerWidth < 640){
+        menu.classList.add('hidden');
+    }
+
+    function toggleMenu(){
+        menu.classList.toggle('hidden');
+    }
+
+    window.addEventListener('resize',function(){
+        if (window.innerWidth > 640){
+            menu.classList.remove('hidden');
+        } else {
+            menu.classList.add('hidden');
+        }
+    })
 </script>
 
 {{#is "post, page"}}
