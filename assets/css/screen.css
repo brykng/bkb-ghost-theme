@@ -41,8 +41,14 @@ body {
 }
 
 .gh-head svg {
-  margin-top: 8vmin;
+  margin-top: 12vmin;
   margin-bottom: -3vmin;
+}
+
+@media screen and (min-width: 40rem){
+  .gh-head svg {
+    margin-top: 8vmin;
+  }
 }
 
 /* Navigation menu */
@@ -115,18 +121,18 @@ body {
 .gh-container .gh-container {
   display: grid;
   grid-template-columns: [left-edge] 5vmin [left-margin] repeat(12, 1fr) [right-margin] 5vmin [right-edge];
-  padding-top: 8vmin;
+  padding: 8vmin 0;
   grid-column: 1 / -1 !important;
 }
 
 .gh-container .gh-header,
 .gh-container .gh-content,
 .gh-container .gh-auth-form {
-  grid-column: 5 / span 6;
+  grid-column: left-margin / right-margin;
 }
 
 .gh-content > * {
-  grid-column: 5 / span 6;
+  grid-column: left-margin / right-margin;
 }
 
 .gh-postfeed {
@@ -197,7 +203,10 @@ body {
 }
 
 @media screen and (min-width: 70rem){
-
+  .gh-container .gh-header,
+  .gh-container .gh-content,
+  .gh-container .gh-auth-form,
+  .gh-content > *,
   .gh-postfeed {
     grid-column: 5 / span 6;
   }
